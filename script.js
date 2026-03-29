@@ -3,25 +3,30 @@ const sections = navLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+function updateActiveLink() {
+  const scrollPosition = window.scrollY + 180;
+  const reachedBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
 
-    if (!visible) {
-      return;
+  let activeSection = sections[0];
+
+  sections.forEach((section) => {
+    if (scrollPosition >= section.offsetTop) {
+      activeSection = section;
     }
+  });
 
-    const id = `#${visible.target.id}`;
-    navLinks.forEach((link) => {
-      link.classList.toggle("is-active", link.getAttribute("href") === id);
-    });
-  },
-  {
-    rootMargin: "-30% 0px -55% 0px",
-    threshold: [0.2, 0.45, 0.7],
+  if (reachedBottom) {
+    activeSection = sections[sections.length - 1];
   }
-);
 
-sections.forEach((section) => observer.observe(section));
+  const activeId = `#${activeSection.id}`;
+  navLinks.forEach((link) => {
+    link.classList.toggle("is-active", link.getAttribute("href") === activeId);
+  });
+}
+
+window.addEventListener("scroll", updateActiveLink, { passive: true });
+window.addEventListener("resize", updateActiveLink);
+window.addEventListener("load", updateActiveLink);
+
+updateActiveLink();
