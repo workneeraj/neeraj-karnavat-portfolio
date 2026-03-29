@@ -499,6 +499,22 @@ a {
   border-top: 1px solid rgba(22, 20, 16, 0.08);
 }
 
+.video-embed {
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 1px solid rgba(22, 20, 16, 0.08);
+  border-radius: 22px;
+  background: #111;
+  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.08);
+}
+
+.video-embed iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
 .support-label {
   margin: 0 0 12px;
   color: var(--accent);
