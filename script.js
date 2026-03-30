@@ -32,11 +32,12 @@ window.addEventListener("load", updateActiveLink);
 updateActiveLink();
 
 document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
+  const viewport = carousel.querySelector(".feedback-viewport");
   const track = carousel.querySelector(".feedback-track");
   const slides = [...carousel.querySelectorAll(".feedback-slide")];
   const dots = [...carousel.querySelectorAll(".feedback-dot")];
 
-  if (!track || slides.length < 2) {
+  if (!track || !viewport || slides.length < 2) {
     return;
   }
 
@@ -46,6 +47,7 @@ document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
   const setSlide = (nextIndex) => {
     index = (nextIndex + slides.length) % slides.length;
     track.style.transform = `translateX(-${index * 100}%)`;
+    viewport.style.height = `${slides[index].offsetHeight}px`;
 
     dots.forEach((dot, dotIndex) => {
       dot.classList.toggle("is-active", dotIndex === index);
@@ -74,6 +76,7 @@ document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
   carousel.addEventListener("mouseleave", startAutoSlide);
   carousel.addEventListener("focusin", stopAutoSlide);
   carousel.addEventListener("focusout", startAutoSlide);
+  window.addEventListener("resize", () => setSlide(index));
 
   setSlide(0);
   startAutoSlide();
