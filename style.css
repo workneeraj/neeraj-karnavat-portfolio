@@ -510,6 +510,46 @@ a {
   margin-bottom: 16px;
 }
 
+.feedback-carousel {
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.feedback-track {
+  display: flex;
+  align-items: stretch;
+  transition: transform 420ms ease;
+  will-change: transform;
+}
+
+.feedback-slide {
+  min-width: 100%;
+  min-height: 172px;
+}
+
+.feedback-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.feedback-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(22, 20, 16, 0.16);
+  cursor: pointer;
+  transition: width 220ms ease, background 220ms ease;
+}
+
+.feedback-dot.is-active {
+  width: 24px;
+  background: var(--primary);
+}
+
 .proof-item {
   padding: 14px;
   border-radius: 16px;
